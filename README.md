@@ -1,66 +1,79 @@
-## Foundry
+# Foundry Static & Dynamic NFT
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Overview
+This project demonstrates two types of NFT smart contracts built using Foundry:
 
-Foundry consists of:
+1. **BasicNft** → A simple ERC-721 NFT where the image is predefined and cannot be changed.
+2. **MoodNft** → A dynamic NFT that can change its appearance or attributes, such as switching between a "happy" and "sad" mood.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+## Project Structure
+```
+foundry-nft/
+│── src/               # Contains Solidity smart contracts
+│   ├── BasicNft.sol   # Static NFT contract
+│   ├── MoodNft.sol    # Dynamic NFT contract
+│
+│── test/              # Test scripts for the contracts
+│── script/            # Deployment scripts
+│── images/            # NFT image assets
+│── foundry.toml       # Foundry configuration file
 ```
 
-### Test
+## Getting Started
 
-```shell
-$ forge test
+### Prerequisites
+Ensure you have Foundry installed. If not, install it with:
+```sh
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
 ```
 
-### Format
-
-```shell
-$ forge fmt
+### Installation
+Clone this repository and install dependencies:
+```sh
+git clone https://github.com/Febri-An/foundry-nft.git
+cd foundry-nft
+forge install
 ```
 
-### Gas Snapshots
-
-```shell
-$ forge snapshot
+### Compilation
+Compile the smart contracts with:
+```sh
+forge build
 ```
 
-### Anvil
-
-```shell
-$ anvil
+### Running Tests
+Run the test suite to ensure everything works correctly:
+```sh
+forge test
 ```
 
-### Deploy
+## Smart Contracts
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+### 1. BasicNft.sol
+- Implements a simple ERC-721 NFT.
+- The image URI is set at minting and cannot be changed.
+
+### 2. MoodNft.sol
+- Implements a dynamic NFT.
+- Owners can toggle the NFT's mood (e.g., happy ↔ sad).
+- Uses on-chain storage to manage the NFT state.
+
+## Deployment
+To deploy the contracts, use the Foundry script:
+```sh
+forge script script/DeployBasicNft.s.sol --broadcast --rpc-url <RPC_URL>
 ```
-
-### Cast
-
-```shell
-$ cast <subcommand>
+or
+```sh
+forge script script/DeployMoodNft.s.sol --broadcast --rpc-url <RPC_URL>
 ```
+Replace `<RPC_URL>` with your blockchain provider URL (e.g., Alchemy, Infura, or Anvil for local testing).
 
-### Help
+## Interaction
+You can directly mint NFT or change the Mood NFT through your terminal or console programatically using Makefile.
+look [here]("https://github.com/Febri-An/foundry-nft/blob/main/Makefile").
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+## License
+This project is licensed under the MIT License.
+
